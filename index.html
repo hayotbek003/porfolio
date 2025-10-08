@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ProCoder — Avaz</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        color: #fff;
+        overflow-x: hidden;
+        background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%);
+        position: relative;
+        opacity: 0;
+        animation: fadeIn 2s ease forwards;
+        cursor: default;
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+
+      .animated-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 30% 20%, #2b00ff40, transparent 70%),
+          radial-gradient(circle at 70% 80%, #ff009940, transparent 70%),
+          linear-gradient(135deg, #00111a, #000);
+        background-size: 300% 300%;
+        animation: bgMove 25s ease-in-out infinite;
+        z-index: -1;
+        filter: brightness(1.2) blur(25px) saturate(1.8);
+      }
+
+      @keyframes bgMove {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(circle at 50% 50%, rgba(255, 0, 255, 0.05), transparent 70%);
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .avatar {
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        border: 4px solid #aa00ff;
+        box-shadow: 0 0 40px #aa00ff60;
+        object-fit: cover;
+        animation: float 6s ease-in-out infinite, glowPulse 4s ease-in-out infinite;
+        transition: all 0.4s ease;
+      }
+
+      .avatar:hover {
+        transform: scale(1.05) rotate(2deg);
+      }
+
+      @media (max-width: 768px) {
+        .avatar {
+          width: 250px;
+          height: 250px;
+        }
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+      }
+
+      @keyframes glowPulse {
+        0%,
+        100% {
+          box-shadow: 0 0 40px #aa00ff60;
+        }
+        50% {
+          box-shadow: 0 0 80px #ff00ff80;
+        }
+      }
+
+      .neon-text {
+        background: linear-gradient(90deg, #ff00cc, #9900ff, #00eaff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 15px #ff00cc30;
+        animation: pulseText 4s infinite alternate;
+        transition: all 0.4s ease;
+      }
+
+      .neon-text:hover {
+        text-shadow: 0 0 25px #ff00ff, 0 0 50px #7700ff;
+      }
+
+      @keyframes pulseText {
+        from {
+          filter: brightness(1);
+        }
+        to {
+          filter: brightness(1.5);
+        }
+      }
+
+      .btn-glow {
+        position: relative;
+        background: linear-gradient(90deg, #ff00cc, #7700ff);
+        background-size: 200%;
+        color: #fff;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 25px #ff00cc60;
+        overflow: hidden;
+        animation: pulseBtn 4s infinite ease-in-out;
+      }
+
+      @keyframes pulseBtn {
+        0%,
+        100% {
+          box-shadow: 0 0 25px #ff00cc60;
+          transform: scale(1);
+        }
+        50% {
+          box-shadow: 0 0 45px #7700ff90;
+          transform: scale(1.02);
+        }
+      }
+
+      .btn-glow::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 200%;
+        height: 100%;
+        background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        animation: shine 3s infinite;
+      }
+
+      @keyframes shine {
+        0% {
+          left: -100%;
+        }
+        50% {
+          left: 100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+
+      .btn-glow:hover {
+        background-position: right;
+        transform: scale(1.05);
+        box-shadow: 0 0 50px #ff00ff90;
+      }
+
+      p {
+        color: #d6c8ff;
+      }
+
+      .stat-box {
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 20px;
+        border: 1px solid #7700ff40;
+        backdrop-filter: blur(10px);
+      }
+
+      .stat-box:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 0 25px #7700ff80;
+      }
+
+      .stat-box h4 {
+        text-shadow: 0 0 15px #ff00cc70;
+      }
+
+      section {
+        margin-bottom: 60px;
+      }
+
+      .reviews-section {
+        margin-bottom: 120px;
+      }
+
+      .scroll-down {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #ff00cc;
+        font-size: 2rem;
+        animation: bounce 2s infinite;
+        cursor: pointer;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translate(-50%, 0);
+        }
+        50% {
+          transform: translate(-50%, 10px);
+        }
+      }
+
+      /* Эффект письма */
+      .typing {
+        overflow: hidden;
+        white-space: nowrap;
+        border-right: 3px solid #ff00cc;
+        width: 0;
+        animation: typing 1s steps(10) forwards, blink 0.4s step-end infinite alternate;
+      }
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; border-right-color: transparent; } /* ← палка исчезает */
+}
+      @keyframes blink {
+        50% {
+          border-color: transparent;
+        }
+      }
+
+      .fade-in {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s ease;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("https://www.transparenttextures.com/patterns/noise.png");
+        opacity: 0.03;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="animated-bg"></div>
+
+    <header class="w-full max-w-7xl mx-auto flex justify-between items-center p-8 text-lg">
+      <h1 class="text-3xl font-bold bg-clip-text text-transparent" style="background: linear-gradient(90deg, #ff00cc, #7700ff); -webkit-background-clip: text;">
+        Pro<span class="text-pink-400">Coder</span>
+      </h1>
+    </header>
+
+    <main class="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between p-10 space-y-12 md:space-y-0 relative mt-20">
+      <div class="max-w-xl text-center md:text-left space-y-6">
+        <h2 class="text-5xl md:text-6xl font-bold text-white leading-tight typing" style="animation-delay: 0.5s;">
+          Привет, я
+        </h2>
+        <h2 class="text-6xl font-bold neon-text typing" style="animation-delay: 2s;">
+          Avaz
+        </h2>
+        <h3 class="text-2xl font-semibold neon-text typing" style="animation-delay: 5s;">
+          Я разработчик
+        </h3>
+
+        <p class="text-gray-300 text-lg leading-relaxed">
+          Спасибо, что заглянули на мой сайт! Надеюсь, вам понравилось моё портфолио и идеи.
+        </p>
+
+        <div class="flex justify-center md:justify-start items-center space-x-6 pt-6">
+          <button class="btn-glow px-8 py-3 rounded-full font-semibold text-lg">
+            Наймите меня
+          </button>
+          <div class="flex space-x-5 text-pink-400 text-2xl">
+            <a href="https://github.com/hayotbek003" target="_blank">
+              <i class="fab fa-github hover:text-white transition"></i>
+            </a>
+            <a href="https://t.me/Avaz_akm1" target="_blank">
+              <i class="fab fa-telegram hover:text-white transition"></i>
+            </a>
+            <a href="https://www.instagram.com/aziz_akm_1" target="_blank">
+              <i class="fab fa-instagram hover:text-white transition"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative p-3">
+        <img src="avatar.png" alt="Неоновый аватар разработчика" class="avatar" />
+      </div>
+
+      <div class="scroll-down" onclick="document.querySelector('#about').scrollIntoView({ behavior: 'smooth' });">
+        <i class="fas fa-chevron-down"></i>
+      </div>
+    </main>
+
+    <section id="about" class="w-full max-w-4xl mx-auto text-center mt-32 fade-in">
+      <h2 class="text-4xl font-bold neon-text mb-6">Обо мне</h2>
+      <p class="text-gray-300 text-lg leading-relaxed">
+        Меня зовут Avaz, я Backent-разработчик, создаю стильные и современные сайты.  
+        Люблю технологии, анимации и нестандартные решения.
+      </p>
+    </section>
+
+    <section class="w-full max-w-7xl mx-auto flex flex-wrap justify-around items-center text-center mt-16 text-pink-400">
+      <div class="stat-box p-6">
+        <h4 class="text-4xl font-bold">1</h4>
+        <p class="text-gray-300 text-lg">Многолетний опыт работы</p>
+      </div>
+      <div class="stat-box p-6">
+        <h4 class="text-4xl font-bold">1</h4>
+        <p class="text-gray-300 text-lg">Технические навыки</p>
+      </div>
+      <div class="stat-box p-6">
+        <h4 class="text-4xl font-bold">7</h4>
+        <p class="text-gray-300 text-lg">Завершённые проекты</p>
+      </div>
+      <div class="stat-box p-6">
+        <h4 class="text-4xl font-bold">16</h4>
+        <p class="text-gray-300 text-lg">Довольные клиенты</p>
+      </div>
+    </section>
+
+    <footer class="text-center text-gray-400 mt-16 pb-8 text-sm">
+      © 2025 ProCoder. Все права защищены.
+    </footer>
+
+    <script>
+      const faders = document.querySelectorAll(".fade-in");
+      window.addEventListener("scroll", () => {
+        faders.forEach((el) => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight - 100) {
+            el.classList.add("visible");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
